@@ -5,6 +5,7 @@ import { p } from './html-elements/p';
 import { button } from './html-elements/button';
 import { div } from './html-elements/div';
 import { strong } from './html-elements/strong';
+import { component } from './component';
 
 export default function start() {
 	console.log('Go build something pretty!');
@@ -23,7 +24,8 @@ export default function start() {
 						' statement.'
 					])
 				])
-			])
+			]),
+			component([0, 1, 2, 3, 4])
 		]);
 	document.body.append(app);
 }
