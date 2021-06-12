@@ -1,6 +1,6 @@
 import { GlobalAttributes } from './GlobalAttributes';
 
-export const createElement = (type: string, att: GlobalAttributes, innerText?: string, childElements?: Array<HTMLElement>) => {
+export const createElement = (type: string, att: GlobalAttributes, innerContent?: Array<string | HTMLElement>) => {
 	const e = document.createElement(type);
 
 	if (att.autofocus) e.autofocus = att.autofocus;
@@ -13,13 +13,17 @@ export const createElement = (type: string, att: GlobalAttributes, innerText?: s
 
 	Object.entries(att)
 		  .filter(([key]) => key.startsWith('on'))
-		  .map(([key,val]) => [key.slice(2), val])
+		  .map(([key, val]) => [key.slice(2), val])
 		  .forEach(([key, val]) => {
 			  e.addEventListener(key, val);
 		  });
 
-	if (innerText) e.innerText = innerText;
-
-	childElements?.forEach((child) => e.append(child));
+	innerContent?.forEach((child) => {
+		if (typeof child === 'string') {
+			e.innerText += child;
+		} else {
+			e.append(child);
+		}
+	});
 	return e;
 };
