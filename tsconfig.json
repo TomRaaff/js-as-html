@@ -5,6 +5,7 @@
     "target": "ES6",
     "outDir": "./dist",
     "sourceMap": true,
+    "lib": ["dom", "ES2020"],
     "removeComments": true,
     "esModuleInterop": true,
     // strict checks
