@@ -4,7 +4,7 @@ import { h1 } from './html-elements/h1';
 import { p } from './html-elements/p';
 import { button } from './html-elements/button';
 import { div } from './html-elements/div';
-import { b } from './html-elements/b';
+import { strong } from './html-elements/strong';
 
 export default function start() {
 	console.log('Go build something pretty!');
@@ -18,7 +18,9 @@ export default function start() {
 			section({}, [
 				div({}, [
 					p({}, [
-						'Here is a', b({}, ['new']), 'statement'
+						'Here is a ',
+						strong({}, ['bold']),
+						' statement.'
 					])
 				])
 			])

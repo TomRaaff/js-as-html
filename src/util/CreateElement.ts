@@ -19,11 +19,8 @@ export const createElement = (type: string, att: GlobalAttributes, innerContent?
 		  });
 
 	innerContent?.forEach((child) => {
-		if (typeof child === 'string') {
-			e.innerText += child;
-		} else {
-			e.append(child);
-		}
+		// element.append takes both strings and HTMLElements
+		e.append(child);
 	});
 	return e;
 };
