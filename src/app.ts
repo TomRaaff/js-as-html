@@ -37,5 +37,3 @@ export default function start() {
 		);
 	document.body.append(app);
 }
-
-start();

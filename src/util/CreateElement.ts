@@ -1,11 +1,19 @@
 import { GlobalAttributes } from './GlobalAttributes';
 
-function isObject(input: unknown): boolean {
-	return typeof input === 'object';
+type ElementDefinition = GlobalAttributes|string|HTMLElement;
+
+function isStringOrHTMLElement(arg: ElementDefinition): boolean {
+	return arg instanceof HTMLElement || typeof arg === 'string';
 }
 
-function isStringOrHTMLElement(arg: GlobalAttributes|string|HTMLElement): boolean {
-	return arg instanceof HTMLElement || typeof arg === 'string';
+function assignAttributes(attr: GlobalAttributes, e: HTMLElement) {
+	if (attr.autofocus) e.autofocus = attr.autofocus;
+	if (attr.class) e.setAttribute('class', attr.class);
+	if (attr.draggable) e.draggable = attr.draggable;
+	if (attr.hidden) e.hidden = attr.hidden;
+	if (attr.id) e.setAttribute('id', attr.id);
+	if (attr.style) e.setAttribute('style', attr.style);
+	if (attr.tabindex) e.tabIndex = attr.tabindex;
 }
 
 function assignEventListeners(element: HTMLElement, attributes: GlobalAttributes): void {
@@ -17,28 +25,22 @@ function assignEventListeners(element: HTMLElement, attributes: GlobalAttributes
 		  });
 }
 
-export const createElement = (type: string, ...args: Array<GlobalAttributes|string|HTMLElement>) => {
-	const e = document.createElement(type);
-	const att = args.find(isObject) as GlobalAttributes;
+export function createElement(type: string, ...args: Array<ElementDefinition>) {
+	const element = document.createElement(type);
+	const attributes = args.find((arg) => !isStringOrHTMLElement(arg)) as GlobalAttributes;
 	const innerContent = args.filter(isStringOrHTMLElement) as Array<string|HTMLElement>;
 
-	if (att) {
-		if (att.autofocus) e.autofocus = att.autofocus;
-		if (att.class) e.setAttribute('class', att.class);
-		if (att.draggable) e.draggable = att.draggable;
-		if (att.hidden) e.hidden = att.hidden;
-		if (att.id) e.setAttribute('id', att.id);
-		if (att.style) e.setAttribute('style', att.style);
-		if (att.tabindex) e.tabIndex = att.tabindex;
-
-		assignEventListeners(e, att);
+	if (attributes) {
+		assignAttributes(attributes, element);
+		assignEventListeners(element, attributes);
 	}
 
 	if (innerContent) {
 		innerContent.forEach((child) => {
 			// element.append takes both strings and HTMLElements
-			e.append(child);
+			element.append(child);
 		});
 	}
-	return e;
+
+	return element;
 };

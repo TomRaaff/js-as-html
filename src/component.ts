@@ -1,16 +1,15 @@
 import { section } from './html-elements/section';
 import { ul } from './html-elements/ul';
-import { li } from './html-elements/li';
 import { button } from './html-elements/button';
-import { h4 } from './html-elements/h4';
+import { h2 } from './html-elements/h2';
+import { listItemComponent } from './listItemComponent';
 
 export const component = (numbers: number[], fromParent: (input: string) => void) => {
-	const str = 'hello';
-	const listItems = numbers.map((num) => str.substring(num))
-							 .map((letter) => li(letter));
+	const listItems = numbers.map((num) => 'hello'.substring(num))
+							 .map((letter) => listItemComponent(letter));
 
 	return section({ class: 'component' },
-				   h4({ class: 'component-title' },
+				   h2({ class: 'component-title' },
 					  'This is a component'
 				   ),
 				   ul(...listItems),
