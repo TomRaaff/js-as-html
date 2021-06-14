@@ -2,7 +2,7 @@ import { GlobalAttributes } from '../util/GlobalAttributes';
 import { HTMLElementFunction } from '../util/HTMLElementFunction';
 import { createElement } from '../util/CreateElement';
 
-export const ul: HTMLElementFunction = (attributes: GlobalAttributes, innerContent?: Array<string|HTMLElement>) => {
+export const ul: HTMLElementFunction = (...args: Array<GlobalAttributes|string|HTMLElement>) => {
 	const elementType = 'ul';
-	return createElement(elementType, attributes, innerContent);
+	return createElement(elementType, ...args);
 }
