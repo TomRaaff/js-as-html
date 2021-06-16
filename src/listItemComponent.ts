@@ -1,6 +1,5 @@
-import { li } from './html-elements/li';
-import { div } from './html-elements/div';
-import { p } from './html-elements/p';
+import { div, li, p } from './util/HTMLElements';
+
 
 export const listItemComponent = (letter: string) => {
 	return li(

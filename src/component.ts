@@ -1,8 +1,5 @@
-import { section } from './html-elements/section';
-import { ul } from './html-elements/ul';
-import { button } from './html-elements/button';
-import { h2 } from './html-elements/h2';
 import { listItemComponent } from './listItemComponent';
+import { button, h2, section, ul } from './util/HTMLElements';
 
 export const component = (numbers: number[], fromParent: (input: string) => void) => {
 	const listItems = numbers.map((num) => 'hello'.substring(num))

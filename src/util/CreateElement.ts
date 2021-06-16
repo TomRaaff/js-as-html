@@ -1,6 +1,5 @@
 import { GlobalAttributes } from './GlobalAttributes';
-
-type ElementDefinition = GlobalAttributes|string|HTMLElement;
+import { ElementDefinition } from './htmlElements';
 
 function isStringOrHTMLElement(arg: ElementDefinition): boolean {
 	return arg instanceof HTMLElement || typeof arg === 'string';
