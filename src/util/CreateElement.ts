@@ -1,37 +1,44 @@
 import { GlobalAttributes } from './GlobalAttributes';
 import { ElementDefinition } from './htmlElements';
+import { EventHandlerAttributes } from './EventHandlerAttributes';
+
+type Attribute = [keyof GlobalAttributes, any];
+type EventAttribute = [keyof EventHandlerAttributes | string, Function];
 
 function isStringOrHTMLElement(arg: ElementDefinition): boolean {
 	return arg instanceof HTMLElement || typeof arg === 'string';
 }
 
-function assignAttributes(attr: GlobalAttributes, e: HTMLElement) {
-	if (attr.autofocus) e.autofocus = attr.autofocus;
-	if (attr.class) e.setAttribute('class', attr.class);
-	if (attr.draggable) e.draggable = attr.draggable;
-	if (attr.hidden) e.hidden = attr.hidden;
-	if (attr.id) e.setAttribute('id', attr.id);
-	if (attr.style) e.setAttribute('style', attr.style);
-	if (attr.tabindex) e.tabIndex = attr.tabindex;
+function assignAttributes(htmlElement: any, attr: Array<Attribute>) {
+	attr.forEach(([key, val]) => {
+		if (typeof val === 'boolean') {
+			htmlElement[key] = val;
+			return;
+		}
+		if (typeof val === 'string') {
+			htmlElement.setAttribute(key, val);
+		}
+	});
 }
 
-function assignEventListeners(element: HTMLElement, attributes: GlobalAttributes): void {
-	Object.entries(attributes)
-		  .filter(([key]) => key.startsWith('on'))
-		  .map(([key, val]) => [key.slice(2), val])
-		  .forEach(([key, val]) => {
-			  element.addEventListener(key, val);
-		  });
+function assignEventListeners(htmlElement: any, events: Array<EventAttribute>): void {
+	events.forEach(([key, val]) => {
+		htmlElement.addEventListener(key.slice(2), val);
+	});
 }
 
 export function createElement(type: string, ...args: Array<ElementDefinition>) {
 	const element = document.createElement(type);
 	const attributes = args.find((arg) => !isStringOrHTMLElement(arg)) as GlobalAttributes;
-	const innerContent = args.filter(isStringOrHTMLElement) as Array<string|HTMLElement>;
+	const innerContent = args.filter(isStringOrHTMLElement) as Array<string | HTMLElement>;
 
 	if (attributes) {
-		assignAttributes(attributes, element);
-		assignEventListeners(element, attributes);
+		const attr = Object.entries(attributes)
+						   .filter(([key]) => !key.startsWith('on')) as Array<Attribute>;
+		const events = Object.entries(attributes)
+							 .filter(([key]) => key.startsWith('on')) as Array<EventAttribute>;
+		assignAttributes(element, attr);
+		assignEventListeners(element, events);
 	}
 
 	if (innerContent) {
