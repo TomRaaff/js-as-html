@@ -11,7 +11,7 @@ have any smart diffing in a virtual dom and doesn't have lifecycle hooks and stu
 So now comes the question: would I want to use it like React?
 
 No. Firstly, because react already exists. Secondly, I don't think I want to build an SPA framework. SPA's complicate a
-lot of stuff that is easy when using the browser standards. Like urls, navigation through the back-button and such.
+lot of stuff that is easy when using the browser standards. Like urls, navigation through the back-button, initial loading time, support for non JS-users and SEO.
 
 I want to build something that is a small toolkit that enables a simple way to add html and enable the usage of components. 
 I want to keep to native HTML, CSS and JS as close as possible and I think writing a single-page-app destroys the HTML parts.
