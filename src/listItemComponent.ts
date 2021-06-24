@@ -1,10 +1,11 @@
-import { div, li, p } from './util/HTMLElements';
+import { div, li, span } from './util/HTMLElements';
 
 
 export const listItemComponent = (letter: string) => {
 	return li(
 		div({ class: 'listItem' },
-			p(letter)
+			span('* '),
+			span(letter)
 		)
 	);
 };

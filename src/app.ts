@@ -1,12 +1,12 @@
 import { component } from './component';
-import { br, button, div, form, h1, input, label, main, p, section, strong } from './util/HTMLElements';
+import { a, audio, br, button, div, form, h1, input, label, main, p, section, source, span, strong } from './util/HTMLElements';
 
 function logEvent(event: Event) {
 	console.log(event);
 }
 
-function fromParent(input: string) {
-	console.log('fromParent', input);
+function fromParent(text: string) {
+	console.log('fromParent', text);
 }
 
 export default function start() {
@@ -36,6 +36,12 @@ export default function start() {
 						input({ type: 'number', id: 'numInput', placeholder: 'enter a number' })
 					)
 				)
+			),
+			section(
+				audio({controls: true},
+					  // todo: can't load audio file because of webpack configuration
+					  source({src:'resources/All Purple.mp3', type: 'audio/mp3'})
+					  )
 			),
 			component([0, 1, 2, 3, 4], fromParent)
 		);
