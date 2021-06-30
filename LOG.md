@@ -15,3 +15,26 @@ lot of stuff that is easy when using the browser standards. Like urls, navigatio
 
 I want to build something that is a small toolkit that enables a simple way to add html and enable the usage of components. 
 I want to keep to native HTML, CSS and JS as close as possible and I think writing a single-page-app destroys the HTML parts.
+
+### Goals:
+- Build something with this as a multi-page app.
+The downside of the current approach, is that there is no performance optimization
+for rendering the html output.
+  How about a portfolio website with a cv-part that writes out the assignments 
+  as components?
+  
+- MPA:
+    - one page with the testing content I created while creating the html-api
+    - one page with multiple components that can be switched in and out of view
+        - calculator
+        - some kind of list
+  
+- Build a single-page app with this and somehow try to test performance.
+    This should be simple and easy. Goal: see if my assumption is correct about
+  this idea having bad performance.
+
+
+### How to make a multipage app...?
+Webpack is really biting me in the ass on this...
+I'm not going to solve this problem tonight (30 jun). Here's some reading: https://medium.com/a-beginners-guide-for-webpack-2/multiple-entries-e1b3d83579bf
+it has a 'next-page'.
