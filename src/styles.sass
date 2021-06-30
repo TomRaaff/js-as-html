@@ -1,28 +1,112 @@
-$superDarkBlue: #2c3e50
-$offWhite: #f9f9f9
+$dark: #011627
+$offWhite: #fdfffc
+$grey: #e9ece8
+$primary: #2ec4b6
+$secondary: #e71d36
+$ternary: #ff9f1c
+$focus: #C744F3
 
 *
   margin: 0
   padding: 0
   box-sizing: border-box
 
+ul
+  margin: 0
+  padding: 0
+  text-indent: 0
+  list-style-type: none
+
 body
   font-family: "Roboto Slab", Avenir, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: $superDarkBlue
+  color: $dark
+  font-size: medium
+
+  header
+    padding: 16px
+    background: $primary
+    color: $offWhite
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    nav,
+    figure,
+    nav > ul,
+    nav > ul > li
+      display: inline-block
+
+    li
+      padding: 0 16px
+
+  nav > ul > li:hover
+    color: $secondary
+    cursor: pointer
 
   main
-    margin: auto
     background-color: $offWhite
-    width: 100vw
-    height: 100vh
+    display: grid
+    grid-template-columns: 135px auto
+
+    aside
+      height: 100vh
+      padding-top: 16px
+
+      li
+        padding: 0 16px
+
+      li:hover
+        background: $secondary
+        color: $offWhite
+
+    section.item-content
+
+      .calculator
+        border-radius: 16px
+        padding: 16px
+        margin: 16px auto
+        width: 50%
+        min-width: 320px
+        max-width: 520px
+        display: grid
+        grid-template-columns: repeat(4, 24%)
+        grid-template-rows: repeat(5, auto)
+
+        input.equationInput
+          padding: 10px 5px
+          grid-column-start: 1
+          grid-column-end: 5
+
+        button[type=solveEquation]
+          background-color: $secondary
+          color: white
+        button[type=solveEquation]:hover
+          background-color: $ternary
 
   article
     padding-top: 10vh
     text-align: center
 
+  input
+    margin: 5px
+    padding: 5px
+    border: solid 1px $ternary
+    border-radius: 5px
+
+
   button
     padding: 5px
     margin: 5px
     cursor: pointer
+    border: none
+    border-radius: 5px
+    background: $grey
+
+  button:hover
+    background: $ternary
+    color: $offWhite
+
+  :focus-visible
+    outline: 2px solid $secondary
