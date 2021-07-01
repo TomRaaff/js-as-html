@@ -1,5 +1,7 @@
-import { component } from './component';
+import { testComponent } from './TestComponent';
 import { audio, br, button, div, form, h1, input, label, p, article, source, strong } from './util/HTMLElements';
+import dispatch from './util/Dispatch';
+import component from './util/Component';
 
 function logEvent(event: Event) {
 	console.log(event);
@@ -7,6 +9,7 @@ function logEvent(event: Event) {
 
 function fromParent(text: string) {
 	console.log('fromParent', text);
+	dispatch('from-parent');
 }
 
 export default function testContent() {
@@ -42,6 +45,7 @@ export default function testContent() {
 					  source({src:'resources/All Purple.mp3', type: 'audio/mp3'})
 					  )
 			),
-			component([0, 1, 2, 3, 4], fromParent)
+		// todo: how do I add components to components without using a parentCssSelector?
+			component('', testComponent([0, 1, 2, 3, 4], fromParent), ['from-parent'])
 		];
 }

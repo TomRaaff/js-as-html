@@ -1,8 +1,10 @@
 import './styles.sass';
-import { render } from './util/Render';
-import calculator from './Calculator';
+// import calculator from './Calculator';
+import component from './util/Component';
+import testContent from './TestContent';
 
 (function () {
-	// todo: add logic to determine what component to render
-	render('section.item-content', calculator());
+	// todo: add logic to determine what testComponent to render
+	// component('section.item-content', calculator(), ['calculator-solve-equation']);
+	component('section.item-content', testContent());
 }());

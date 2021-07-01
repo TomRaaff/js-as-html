@@ -1,13 +1,13 @@
 import { listItemComponent } from './listItemComponent';
 import { article, button, h2, ul } from './util/HTMLElements';
 
-export const component = (numbers: number[], fromParent: (input: string) => void) => {
+export const testComponent = (numbers: number[], fromParent: (input: string) => void) => {
 	const listItems = numbers.map((num) => 'hello'.substring(num))
 							 .map((letter) => listItemComponent(letter));
 
-	return article({ class: 'component' },
-				   h2({ class: 'component-title' },
-					  'This is a component'
+	return article({ class: 'testComponent' },
+				   h2({ class: 'testComponent-title' },
+					  'This is a testComponent'
 				   ),
 				   ul(...listItems),
 				   button({ id: 'childButton', onclick: () => fromParent('from child') },

@@ -1,17 +1,18 @@
 /**
  * @param location CssSelector string
- * @param item: HTMLElement | Array<HTMLElement>
+ * @param content: HTMLElement | Array<HTMLElement>
  */
-export function render(location: string, item: HTMLElement | Array<HTMLElement>) {
-	if (Array.isArray(item)) {
+export function render(location: string, content: HTMLElement | Array<HTMLElement>) {
+	if (Array.isArray(content)) {
 		const locationElement = document.querySelector(location);
 		if (locationElement) {
-			locationElement.append(...item);
+			locationElement.append(...content);
 		}
 	} else {
 		const locationElement = document.querySelector(location);
 		if (locationElement) {
-			locationElement.append(item);
+			locationElement.append(content);
 		}
 	}
+	return content;
 }

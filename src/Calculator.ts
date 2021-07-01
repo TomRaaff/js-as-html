@@ -1,6 +1,7 @@
-import { button, div, input } from './util/HTMLElements';
+import { button, div, h3, header, input } from './util/HTMLElements';
+import dispatch from './util/Dispatch';
 
-const equationInput = input({class: 'equationInput', type: 'text'}) as HTMLInputElement;
+const equationInput = input({ class: 'equationInput', type: 'text' }) as HTMLInputElement;
 
 function add(buttonEl: HTMLButtonElement, inputElement: HTMLInputElement) {
 	const text = buttonEl.innerText;
@@ -21,6 +22,7 @@ export function solveEquation(inputElement: HTMLInputElement) {
 	const disallowedChars = /([^0-9()/+\-*%]+)/gmi;
 	const sanitized = inputElement.value.replace(disallowedChars, '');
 	inputElement.value = eval(sanitized);
+	dispatch('calculator-solve-equation');
 }
 
 /* todo: make a display for the answers.
@@ -29,27 +31,38 @@ export function solveEquation(inputElement: HTMLInputElement) {
 		 just like linux does with it's default calculator
  */
 export default function calculator() {
-	return div({class: 'calculator'},
+	return div({ class: 'calculator' },
+			   header(
+				   // @ts-ignore
+				   {
+					   onclick: function () {
+						   console.log(this);
+						   const that = this as HTMLHeadElement;
+						   that.remove();
+					   }
+				   },
+				   h3('Calculator')
+			   ),
 			   equationInput,
-			   button({class: 'equationItem', onclick: addToEquation}, '('),
-			   button({class: 'equationItem', onclick: addToEquation}, ')'),
-			   button({class: 'equationItem', onclick: addToEquation}, '%'),
-			   button({class: 'clearEquation', onclick: () => clearEquation(equationInput)}, 'clear'),
-			   button({class: 'number', onclick: addToEquation}, '7'),
-			   button({class: 'number', onclick: addToEquation}, '8'),
-			   button({class: 'number', onclick: addToEquation}, '9'),
-			   button({class: 'equationItem', onclick: addToEquation}, '/'),
-			   button({class: 'number', onclick: addToEquation}, '4'),
-			   button({class: 'number', onclick: addToEquation}, '5'),
-			   button({class: 'number', onclick: addToEquation}, '6'),
-			   button({class: 'equationItem', onclick: addToEquation}, '*'),
-			   button({class: 'number', onclick: addToEquation}, '1'),
-			   button({class: 'number', onclick: addToEquation}, '2'),
-			   button({class: 'number', onclick: addToEquation}, '3'),
-			   button({class: 'equationItem', onclick: addToEquation}, '+'),
-			   button({class: 'number', onclick: addToEquation}, '0'),
-			   button({class: 'equationItem', onclick: addToEquation}, '.'),
-			   button({type: 'solveEquation', onclick: () => solveEquation(equationInput)}, '='),
-			   button({class: 'equationItem', onclick: addToEquation}, '-'),
-			   )
+			   button({ class: 'equationItem', onclick: addToEquation }, '('),
+			   button({ class: 'equationItem', onclick: addToEquation }, ')'),
+			   button({ class: 'equationItem', onclick: addToEquation }, '%'),
+			   button({ class: 'clearEquation', onclick: () => clearEquation(equationInput) }, 'clear'),
+			   button({ class: 'number', onclick: addToEquation }, '7'),
+			   button({ class: 'number', onclick: addToEquation }, '8'),
+			   button({ class: 'number', onclick: addToEquation }, '9'),
+			   button({ class: 'equationItem', onclick: addToEquation }, '/'),
+			   button({ class: 'number', onclick: addToEquation }, '4'),
+			   button({ class: 'number', onclick: addToEquation }, '5'),
+			   button({ class: 'number', onclick: addToEquation }, '6'),
+			   button({ class: 'equationItem', onclick: addToEquation }, '*'),
+			   button({ class: 'number', onclick: addToEquation }, '1'),
+			   button({ class: 'number', onclick: addToEquation }, '2'),
+			   button({ class: 'number', onclick: addToEquation }, '3'),
+			   button({ class: 'equationItem', onclick: addToEquation }, '+'),
+			   button({ class: 'number', onclick: addToEquation }, '0'),
+			   button({ class: 'equationItem', onclick: addToEquation }, '.'),
+			   button({ type: 'solveEquation', onclick: () => solveEquation(equationInput) }, '='),
+			   button({ class: 'equationItem', onclick: addToEquation }, '-'),
+	);
 }
