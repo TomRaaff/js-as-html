@@ -12,7 +12,7 @@ function fromParent(text: string) {
 	dispatch('from-parent');
 }
 
-export default function testContent() {
+export default function testContent(): Array<HTMLElement> {
 	console.log('Go build something pretty!');
 	return [
 			article(
