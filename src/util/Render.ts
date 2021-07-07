@@ -1,18 +1,17 @@
 /**
- * @param location CssSelector string
+ * @param parentCssSelector CssSelector string
  * @param content: HTMLElement | Array<HTMLElement>
  */
-export function render(location: string, content: HTMLElement | Array<HTMLElement>) {
+export function render(parentCssSelector: string, content: HTMLElement | Array<HTMLElement>) {
+	const parent = document.querySelector(parentCssSelector);
+	if (!parent) throw new Error('could not find parent-element by selector: ' + parentCssSelector);
+
 	if (Array.isArray(content)) {
-		const locationElement = document.querySelector(location);
-		if (locationElement) {
-			locationElement.append(...content);
-		}
+		parent.append(...content);
+		//ts-ignore
 	} else {
-		const locationElement = document.querySelector(location);
-		if (locationElement) {
-			locationElement.append(content);
-		}
+		parent.append(content);
 	}
+
 	return content;
 }

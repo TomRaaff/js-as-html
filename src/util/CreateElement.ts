@@ -1,12 +1,13 @@
 import { GlobalAttributes } from './GlobalAttributes';
 import { ElementDefinition } from './htmlElements';
 import { EventHandlerAttributes } from './EventHandlerAttributes';
+import Component2 from './Component2';
 
 type Attribute = [keyof GlobalAttributes, any];
 type EventAttribute = [keyof EventHandlerAttributes | string, Function];
 
-function isStringOrHTMLElement(arg: ElementDefinition): boolean {
-	return arg instanceof HTMLElement || typeof arg === 'string';
+function isStringOrHTMLElementOrComponent(arg: ElementDefinition): boolean {
+	return arg instanceof HTMLElement || typeof arg === 'string' || 'isComponent' in arg;
 }
 
 function assignAttributes(htmlElement: any, attr: Array<Attribute>) {
@@ -29,8 +30,8 @@ function assignEventListeners(htmlElement: any, events: Array<EventAttribute>): 
 
 export function createElement(type: string, ...args: Array<ElementDefinition>) {
 	const element = document.createElement(type);
-	const attributes = args.find((arg) => !isStringOrHTMLElement(arg)) as GlobalAttributes;
-	const innerContent = args.filter(isStringOrHTMLElement) as Array<string | HTMLElement>;
+	const attributes = args.find((arg) => !isStringOrHTMLElementOrComponent(arg)) as GlobalAttributes;
+	const innerContent = args.filter(isStringOrHTMLElementOrComponent) as Array<string | HTMLElement | Component2>;
 
 	if (attributes) {
 		const attr = Object.entries(attributes)
@@ -43,8 +44,17 @@ export function createElement(type: string, ...args: Array<ElementDefinition>) {
 
 	if (innerContent) {
 		innerContent.forEach((child) => {
+			if (typeof child !== 'string' && 'isComponent' in child) {
+				console.log('is component');
+				const rendered = (child as Component2).render();
+				if (Array.isArray(rendered)) {
+					element.append(...rendered);
+				} else {
+					element.append(rendered);
+				}
+			}
 			// element.append takes both strings and HTMLElements
-			element.append(child);
+			element.append(child as string | HTMLElement);
 		});
 	}
 

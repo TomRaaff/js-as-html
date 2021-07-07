@@ -1,6 +1,7 @@
 import { GlobalAttributes } from './GlobalAttributes';
 import { HTMLElementFunction } from './HTMLElementFunction';
 import { createElement } from './CreateElement';
+import Component2 from './Component2';
 
 /*
 	These elements are not implemented:
@@ -8,7 +9,7 @@ import { createElement } from './CreateElement';
  */
 
 
-export type ElementDefinition = GlobalAttributes | string | HTMLElement;
+export type ElementDefinition = GlobalAttributes | string | HTMLElement | Component2;
 
 /**
  * Defines a hyperlink
