@@ -45,8 +45,7 @@ export function createElement(type: string, ...args: Array<ElementDefinition>) {
 	if (innerContent) {
 		innerContent.forEach((child) => {
 			if (typeof child !== 'string' && 'isComponent' in child) {
-				console.log('is component');
-				const rendered = (child as Component2).render();
+				const rendered = child.render();
 				if (Array.isArray(rendered)) {
 					element.append(...rendered);
 				} else {

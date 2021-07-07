@@ -1,4 +1,5 @@
 import { render } from './Render';
+import Component2 from './Component2';
 
 function addDestroyEventListener(eventName: string, content: HTMLElement | Array<HTMLElement>) {
 	document.addEventListener(eventName, () => {
@@ -12,7 +13,7 @@ function addDestroyEventListener(eventName: string, content: HTMLElement | Array
 
 export default function component(parentCssSelector: string,
 								  content: HTMLElement | Array<HTMLElement>,
-								  destroyOn?: Array<string>): HTMLElement | Array<HTMLElement> {
+								  destroyOn?: Array<string>): HTMLElement | Array<HTMLElement> | Component2 {
 	if (destroyOn) {
 		destroyOn.forEach((eventName) => {
 			addDestroyEventListener(eventName, content);
