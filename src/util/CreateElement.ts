@@ -51,9 +51,10 @@ export function createElement(type: string, ...args: Array<ElementDefinition>) {
 				} else {
 					element.append(rendered);
 				}
+			} else {
+				// element.append takes both strings and HTMLElements
+				element.append(child);
 			}
-			// element.append takes both strings and HTMLElements
-			element.append(child as string | HTMLElement);
 		});
 	}
 

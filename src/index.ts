@@ -6,8 +6,7 @@ import { CalculatorComponent } from './CalculatorComponent';
 import { render } from './util/Render';
 
 (function () {
-	// todo: add logic to determine what component to render
-	render('section.item-content', new CalculatorComponent());
+	render('section.item-content', new CalculatorComponent(0));
 	// component('section.item-content', calculator(), ['calculator-solve-equation']);
 	// component('section.item-content', testContent());
 }());

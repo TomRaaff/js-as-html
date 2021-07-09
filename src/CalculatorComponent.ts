@@ -1,11 +1,14 @@
 import { button, div, h3, header, input } from './util/HTMLElements';
-import dispatch from './util/Dispatch';
 import { AnswersComponent } from './AnswersComponent';
 import Component2 from './util/Component2';
 
 export class CalculatorComponent extends Component2 {
-	private answer = 0;
 	private equationInput = input({ class: 'equationInput', type: 'text' }) as HTMLInputElement;
+
+	constructor(answer: number) {
+		super();
+		this.setState({ answer });
+	}
 
 	add(buttonEl: HTMLButtonElement, inputElement: HTMLInputElement) {
 		const text = buttonEl.innerText;
@@ -25,9 +28,8 @@ export class CalculatorComponent extends Component2 {
 		// regex matches the negation of all allowed characters
 		const disallowedChars = /([^0-9()/+\-*%]+)/gmi;
 		const sanitized = inputElement.value.replace(disallowedChars, '');
-		this.answer = eval(sanitized);
-		inputElement.value = this.answer.toString();
-		dispatch('calculator-solve-equation');
+		this.state.answer = eval(sanitized);
+		inputElement.value = this.state.answer.toString();
 	}
 
 	render(): HTMLElement | Array<HTMLElement> {
@@ -36,9 +38,8 @@ export class CalculatorComponent extends Component2 {
 					   // @ts-ignore
 					   {
 						   onclick: function () {
-							   console.log(this);
-							   const that = this as HTMLHeadElement;
-							   that.remove();
+							   const headElement = this as HTMLHeadElement;
+							   headElement.remove();
 						   }
 					   },
 					   h3('Calculator')
@@ -64,8 +65,7 @@ export class CalculatorComponent extends Component2 {
 				   button({ class: 'equationItem', onclick: (event: Event) => this.addToEquation(event) }, '.'),
 				   button({ type: 'solveEquation', onclick: () => this.solveEquation(this.equationInput) }, '='),
 				   button({ class: 'equationItem', onclick: (event: Event) => this.addToEquation(event) }, '-'),
-				   // TODO: how do I update this component whenever the answer changes?
-				   new AnswersComponent(this.answer)
+				   new AnswersComponent(this.state.answer)
 		);
 	}
 

@@ -13,7 +13,8 @@
     // linter checks
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "experimentalDecorators": true
   },
   "include": [
     "./src/**/*"
